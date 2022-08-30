@@ -1,0 +1,1 @@
+console.log('Process Renderer 2')
