@@ -7,18 +7,14 @@ const url=require('url');
 
 let win;
 function createWindow(){
-    win=new BrowserWindow();
-    win.loadURL(url.format({
-        pathname:path.join(__dirname,'index.html'),
-        protocol:'file',
-        slashes:true
-    }));
-
-    win.webContents.openDevTools();
+    win=new BrowserWindow({title:'Parent Window',width:800,height:800});
     
-    win.on('closed',()=>{
-        win=null;
-    });
+    let secondWindow=new BrowserWindow({parent:win,modal:false,title:'child Window',frame:true,show:false})
+    secondWindow.loadURL('https://github.com/aminos02/ElectronJs/blob/main/index.js')
+    secondWindow.once('ready-to-show',()=>{
+        secondWindow.show();
+    })
+
 }
 
 app.on('ready',createWindow)
